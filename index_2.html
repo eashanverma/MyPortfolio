@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eashan Verma — Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0e;
+    --bg2: #131316;
+    --bg3: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0ede8;
+    --muted: #888580;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --accent-dim: rgba(200,169,110,0.12);
+    --accent-dim2: rgba(200,169,110,0.06);
+    --tag-bg: rgba(200,169,110,0.1);
+    --tag-text: #c8a96e;
+    --card-bg: #131316;
+    --card-hover: #1a1a1f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4rem; background: rgba(12,12,14,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(200,169,110,0.05) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; }
+
+  /* Profile photo */
+  .profile-photo-wrap { position: relative; flex-shrink: 0; }
+  .profile-photo-ring { width: 240px; height: 240px; border-radius: 50%; padding: 3px; background: conic-gradient(var(--accent) 0deg, rgba(200,169,110,0.15) 200deg, var(--accent) 360deg); position: relative; }
+  .profile-photo-ring::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; border: 1px solid rgba(200,169,110,0.1); }
+  .profile-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+  .profile-placeholder { width: 100%; height: 100%; border-radius: 50%; background: var(--bg3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: none; }
+  .placeholder-initials { font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+  .placeholder-hint { font-size: 0.63rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; }
+  .profile-badge { position: absolute; bottom: 10px; right: 0px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 100px; padding: 0.32rem 0.85rem; font-size: 0.7rem; color: var(--text); display: flex; align-items: center; gap: 0.45rem; white-space: nowrap; }
+  .profile-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-dim); border: 1px solid rgba(200,169,110,0.2); color: var(--accent); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem; width: fit-content; }
+  h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  h1 .accent { color: var(--accent); display: block; }
+  .hero-sub { font-size: 1rem; color: var(--muted); max-width: 440px; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; border-radius: 100px; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: all 0.2s; border: none; font-family: 'DM Sans', sans-serif; letter-spacing: 0.01em; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: #0c0c0e; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim2); }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+  section { padding: 6rem 4rem; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--accent); opacity: 0.4; }
+  h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.02em; margin-bottom: 3rem; line-height: 1.2; }
+  .max-w { max-width: 1000px; margin: 0 auto; }
+
+  #skills { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .skill-group { background: var(--card-bg); padding: 1.75rem; transition: background 0.2s; }
+  .skill-group:hover { background: var(--card-hover); }
+  .skill-group-label { font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; margin-bottom: 1rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag { background: var(--tag-bg); color: var(--tag-text); font-size: 0.78rem; padding: 0.25rem 0.65rem; border-radius: 100px; border: 1px solid rgba(200,169,110,0.15); }
+  .tag.n { background: rgba(255,255,255,0.04); color: var(--muted); border-color: var(--border); }
+
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--border2); }
+  .tl-item { position: relative; padding: 0 0 3rem 2rem; }
+  .tl-item::before { content: ''; position: absolute; left: -6px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); box-shadow: 0 0 0 3px rgba(200,169,110,0.15); }
+  .tl-item:last-child { padding-bottom: 0; }
+  .job-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .job-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600; }
+  .job-co { color: var(--accent); font-size: 0.88rem; margin-top: 0.15rem; }
+  .job-date { font-size: 0.78rem; color: var(--muted); white-space: nowrap; background: var(--bg3); padding: 0.3rem 0.75rem; border-radius: 100px; border: 1px solid var(--border); }
+  .bullets { list-style: none; }
+  .bullets li { position: relative; padding-left: 1rem; color: rgba(240,237,232,0.75); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0.4rem; }
+  .bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.15em; }
+
+  #education { background: var(--bg2); }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .edu-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: border-color 0.2s, background 0.2s; position: relative; overflow: hidden; }
+  .edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
+  .edu-card:hover { border-color: rgba(200,169,110,0.25); background: var(--card-hover); }
+  .edu-degree { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .edu-school { color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; }
+  .edu-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.85rem; }
+  .edu-grade { display: inline-block; background: var(--accent-dim); color: var(--accent); font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 100px; border: 1px solid rgba(200,169,110,0.2); margin-bottom: 1rem; }
+  .cap-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.35rem; }
+  .cap-text { font-size: 0.85rem; color: rgba(240,237,232,0.7); line-height: 1.6; }
+
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .proj-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+  .proj-card:hover { border-color: rgba(200,169,110,0.2); background: var(--card-hover); transform: translateY(-2px); }
+  .proj-tech { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
+  .proj-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .proj-desc { font-size: 0.85rem; color: rgba(240,237,232,0.65); line-height: 1.6; }
+
+  #contact { background: var(--bg2); }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .contact-text p { color: var(--muted); font-weight: 300; max-width: 380px; line-height: 1.8; }
+  .contact-actions { display: flex; flex-direction: column; gap: 1rem; }
+  .c-btn { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: var(--card-bg); border: 1px solid var(--border); text-decoration: none; color: var(--text); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .c-btn:hover { border-color: rgba(200,169,110,0.3); background: var(--accent-dim2); transform: translateX(4px); }
+  .c-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+  .c-info { flex: 1; }
+  .c-info-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .c-info-value { font-weight: 500; font-size: 0.9rem; margin-top: 0.1rem; }
+  .c-arrow { color: var(--accent); font-size: 1.1rem; }
+  .social-links { display: flex; gap: 1rem; margin-top: 2rem; }
+  .soc-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border-radius: 100px; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: all 0.2s; }
+  .soc-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer { text-align: center; padding: 2rem 4rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .profile-photo-wrap { display: flex; justify-content: center; order: -1; }
+    .profile-photo-ring { width: 180px; height: 180px; }
+    .placeholder-initials { font-size: 2.5rem; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-top: 7rem; }
+    .hero-stats { gap: 1.5rem; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">EV<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="about">
+  <div class="hero-inner">
+    <div class="hero-text fade-in">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1>Eashan<br><span class="accent">Verma.</span></h1>
+      <p class="hero-sub">MSc Data Science & Analytics graduate. I turn complex data into decisions that actually move the needle — through ML, BI, and end-to-end analytics.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-primary" id="hero-call-btn">📞 Call Me</a>
+        <a href="mailto:vermaeashan@gmail.com" class="btn btn-ghost">✉ Email Me</a>
+        <a href="#" class="btn btn-ghost" id="hero-cv-btn" target="_blank">📄 Get my latest résumé</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">2+</div><div class="stat-label">Years experience</div></div>
+        <div><div class="stat-num">9.32 CGPA</div><div class="stat-label">Bachelor's (Bachelor of Computer Applications)</div></div>
+        <div><div class="stat-num">Grade 1.1</div><div class="stat-label">Master of Science (Msc Data Science and Analytics)</div></div>
+      </div>
+    </div>
+
+    <!-- ═══ PROFILE PHOTO ═══
+         To swap in your real photo, replace the .profile-placeholder div below with:
+         <img src="your-photo.jpg" alt="Eashan Verma" class="profile-photo">
+         That's it — one line change. -->
+    <div class="profile-photo-wrap fade-in">
+      <div class="profile-photo-ring">
+        <img src="ProfilePic.png" alt="Eashan Verma" class="profile-photo">
+        </div>
+      </div>
+      <div class="profile-badge">Open to work</div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="max-w">
+    <div class="section-label">What I work with</div>
+    <h2>Skills & Tools</h2>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">Programming & Databases</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">SAS</span><span class="tag n">BigQuery</span><span class="tag n">PostgreSQL</span><span class="tag n">MongoDB</span><span class="tag n">MySQL</span></div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">Visualisation & BI</div>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag n">Matplotlib</span><span class="tag n">Seaborn</span><span class="tag n">Plotly</span><span class="tag n">ggplot2</span></div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">ML & Statistics</div>
+        <div class="tags"><span class="tag">Regression</span><span class="tag">Classification</span><span class="tag">Neural Networks</span><span class="tag n">A/B Testing</span><span class="tag n">Time Series</span><span class="tag n">Clustering</span></div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">Techniques</div>
+        <div class="tags"><span class="tag">EDA</span><span class="tag">ETL</span><span class="tag">Predictive Modelling</span><span class="tag n">KPI Reporting</span><span class="tag n">Reporting Automation</span><span class="tag n">Data Wrangling</span></div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">Tools & Environments</div>
+        <div class="tags"><span class="tag n">GitHub</span><span class="tag n">Jupyter</span><span class="tag n">VS Code</span><span class="tag n">QGIS</span><span class="tag n">SEMrush</span><span class="tag n">RStudio</span></div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-label">Cloud & Web</div>
+        <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag n">React</span><span class="tag n">Node.js</span><span class="tag n">REST APIs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="max-w">
+    <div class="section-label">Career</div>
+    <h2>Professional Experience</h2>
+    <div class="timeline">
+      <div class="tl-item fade-in">
+        <div class="job-header">
+          <div><div class="job-title">Data Analytics Associate</div><div class="job-co">Excellence Technology</div></div>
+          <span class="job-date">Jun 2023 – Jul 2024</span>
+        </div>
+        <ul class="bullets">
+          <li>Processed 50K+ records using Python and SQL, refining data accuracy by 80% and reducing manual effort by 45%.</li>
+          <li>Built Power BI and Tableau dashboards to monitor KPIs, improving reporting efficiency by 85%.</li>
+          <li>Developed ML models (regression/classification) with 90%+ accuracy, enhancing decision support by 60%.</li>
+        </ul>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="job-header">
+          <div><div class="job-title">Marketing Data Analyst</div><div class="job-co">Visibility Gurus</div></div>
+          <span class="job-date">Nov 2022 – May 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Analysed keyword performance and website traffic data, guiding a 65% increase in organic traffic.</li>
+          <li>Developed automated dashboards for campaign tracking, reducing manual reporting time by 50%.</li>
+          <li>Executed landing page analysis through A/B testing, boosting conversions by 35%.</li>
+        </ul>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="job-header">
+          <div><div class="job-title">Business Analyst</div><div class="job-co">Eminence Internet Technology</div></div>
+          <span class="job-date">Jan 2022 – Aug 2022</span>
+        </div>
+        <ul class="bullets">
+          <li>Secured and managed 20+ freelance projects via Upwork, achieving a 40% conversion rate.</li>
+          <li>Performed SQL-based analysis to validate project and revenue data, enhancing reporting accuracy by 70%.</li>
+          <li>Tracked and evaluated project metrics, improving workflow efficiency by 80%.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="max-w">
+    <div class="section-label">Academics</div>
+    <h2>Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-degree">MSc Data Science & Analytics</div>
+        <div class="edu-school">Maynooth University, Ireland</div>
+        <div class="edu-meta">Sep 2024 – Jul 2025</div>
+        <div class="edu-grade">First Class Honours (1.1)</div>
+        <div class="cap-label">Capstone Project</div>
+        <div class="cap-text">AI-Based Prostate Cancer Risk Prediction — CNN deep learning model achieving 82% accuracy for risk classification using Python and ML techniques.</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-degree">Bachelor of Computer Applications</div>
+        <div class="edu-school">Chitkara University, India</div>
+        <div class="edu-meta">Aug 2019 – Jul 2022</div>
+        <div class="edu-grade">CGPA: 9.32 / 10</div>
+        <div class="cap-label">Capstone Project</div>
+        <div class="cap-text">Automatic Irrigation System using Arduino C and IoT principles for smart, sensor-driven water management.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="max-w">
+    <div class="section-label">Work samples</div>
+    <h2>Projects</h2>
+    <div class="proj-grid">
+      <div class="proj-card fade-in">
+        <div class="proj-tech">R · RStudio</div>
+        <div class="proj-name">Paris Olympics Data Analysis</div>
+        <div class="proj-desc">Analysed Paris Olympics 2024 shooting events, evaluating participation trends, gender representation, and athlete performance metrics.</div>
+      </div>
+      <div class="proj-card fade-in">
+        <div class="proj-tech">SAS · Statistics</div>
+        <div class="proj-name">Speed Dating Experiment</div>
+        <div class="proj-desc">Statistical analysis and hypothesis testing on speed dating data using SAS to identify factors influencing mutual romantic interest.</div>
+      </div>
+      <div class="proj-card fade-in">
+        <div class="proj-tech">PostgreSQL · QGIS</div>
+        <div class="proj-name">Geospatial Database Project</div>
+        <div class="proj-desc">Engineered a geospatial database to analyse distribution of universities, restaurants, and pharmacies across Manchester, UK.</div>
+      </div>
+      <div class="proj-card fade-in">
+        <div class="proj-tech">MERN Stack · REST API</div>
+        <div class="proj-name">SyncEdge Web Application</div>
+        <div class="proj-desc">Full-stack collaborative platform with REST API integration and responsive frontend design built using MongoDB, Express, React, and Node.js. Live at <a href="https://syncedge.vercel.app/" target="_blank">SyncEdge</a></div>
+      </div>
+      <div class="proj-card fade-in">
+        <div class="proj-tech">Vanilla JS · HTML · CSS </div>
+        <div class="proj-name">Balanced Bites Business Website</div>
+        <div class="proj-desc">Full-stack nutrition & wellness website with booking form, email integration, admin gallery, and custom domain deployment — built entirely with HTML, CSS and JavaScript. Live at <a href="https://balancedbites.in/" target="_blank">BalancedBites</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="max-w">
+    <div class="contact-wrap">
+      <div class="contact-text">
+        <div class="section-label">Get in touch</div>
+        <h2>Let's work<br>together.</h2>
+        <p>Open to data analyst, data scientist, and BI roles. Whether it's a quick question or a full opportunity — reach out directly.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/eashan-verma-403b861b6/" class="soc-btn" target="_blank">LinkedIn</a>
+          <a href="https://github.com/eashanverma" class="soc-btn" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <a href="#" class="c-btn" id="contact-call-btn">
+          <div class="c-icon">📞</div>
+          <div class="c-info"><div class="c-info-label">Call directly</div><div class="c-info-value" id="phone-display">Detecting…</div></div>
+          <span class="c-arrow">→</span>
+        </a>
+        <a href="mailto:vermaeashan@gmail.com" class="c-btn">
+          <div class="c-icon">✉</div>
+          <div class="c-info"><div class="c-info-label">Send an email</div><div class="c-info-value">vermaeashan@gmail.com</div></div>
+          <span class="c-arrow">→</span>
+        </a>
+        <a href="#" class="c-btn" id="cv-download-btn" target="_blank">
+    <div class="c-icon">📄</div>
+    <div class="c-info"><div class="c-info-label">Download CV</div><div class="c-info-value">Get my latest résumé</div></div>
+    <span class="c-arrow">↓</span>
+  </a>
+        <div class="c-btn" style="cursor:default;">
+          <div class="c-icon">📍</div>
+          <div class="c-info"><div class="c-info-label">Location</div><div class="c-info-value" id="location-display">Detecting…</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Eashan Verma · Data Scientist & Analytics Professional</p>
+</footer>
+
+<script>
+  const contacts = {
+    in: { phone: '+91 788 889 4447', tel: 'tel:+917888894447', location: 'Mohali, India' },
+    ie: { phone: '+353 89 416 7106', tel: 'tel:+353894167106', location: 'Dublin, Ireland' }
+  };
+
+  const cvFiles = {
+    in: 'EashanVerma_CV.IN.pdf',
+    ie: 'EashanVerma_CV.pdf'
+  };
+
+  function applyContact(key) {
+    const c = contacts[key] || contacts.in;
+    document.getElementById('phone-display').textContent = c.phone;
+    document.getElementById('location-display').textContent = c.location;
+    document.getElementById('contact-call-btn').href = c.tel;
+    document.getElementById('hero-call-btn').href = c.tel;
+    const cv = cvFiles[key] || cvFiles.in;
+    document.getElementById('hero-cv-btn').href = cv;
+    document.getElementById('hero-cv-btn').removeAttribute('download', cv);
+    document.getElementById('cv-download-btn').href = cv;
+    document.getElementById('cv-download-btn').removeAttribute('download', cv);
+  }
+
+  const urlParam = new URLSearchParams(window.location.search).get('region');
+  if (urlParam === 'ie' || urlParam === 'in') {
+    applyContact(urlParam);
+  } else {
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => applyContact(d.country_code === 'IE' ? 'ie' : 'in'))
+      .catch(() => applyContact('in'));
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
